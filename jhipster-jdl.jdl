@@ -1,0 +1,33 @@
+
+
+entity Product {
+	productName String,
+	productCode String,
+    productPrice Long
+}
+
+entity ProductCategory {
+	productCategoryName String,
+
+    }
+
+entity ProductComment {
+	productComment String,
+	author String,
+    commentTitle String
+
+}
+
+
+
+relationship OneToMany {
+	ProductCategory to Product{productCategory required},
+
+    Product to ProductComment{product required}
+
+}
+
+
+paginate ProductCategory, Product, ProductComment with pagination
+
+

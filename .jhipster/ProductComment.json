@@ -1,0 +1,36 @@
+{
+  "applications": "*",
+  "changelogDate": "20220406093126",
+  "dto": "no",
+  "embedded": false,
+  "entityTableName": "product_comment",
+  "fields": [
+    {
+      "fieldName": "productComment",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "author",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "commentTitle",
+      "fieldType": "String"
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": false,
+  "name": "ProductComment",
+  "pagination": "pagination",
+  "readOnly": false,
+  "relationships": [
+    {
+      "otherEntityName": "product",
+      "otherEntityRelationshipName": "productComment",
+      "relationshipName": "product",
+      "relationshipType": "many-to-one",
+      "relationshipValidateRules": "required"
+    }
+  ],
+  "service": "no"
+}

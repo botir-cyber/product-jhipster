@@ -1,0 +1,27 @@
+{
+  "productCrudApp": {
+    "productComment": {
+      "home": {
+        "title": "Product Comments",
+        "refreshListLabel": "Refresh list",
+        "createLabel": "Yangi Product Comment qo`shish",
+        "createOrEditLabel": "Product Commentni tahrirlash",
+        "notFound": "No Product Comments found"
+      },
+      "created": "Product Comment {{ param }} bilan qo`shildi",
+      "updated": "{{ param }}- Product Comment saqlandi",
+      "deleted": "{{ param }}- Product Comment o`chirildi",
+      "delete": {
+        "question": "{{ id }}- Product Commentni o`chirmoqchimisiz? "
+      },
+      "detail": {
+        "title": "Product Comment"
+      },
+      "id": "ID",
+      "productComment": "Product Comment",
+      "author": "Author",
+      "commentTitle": "Comment Title",
+      "product": "Product"
+    }
+  }
+}

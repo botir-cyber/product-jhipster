@@ -1,0 +1,42 @@
+{
+  "applications": "*",
+  "changelogDate": "20220406093124",
+  "dto": "no",
+  "embedded": false,
+  "entityTableName": "product",
+  "fields": [
+    {
+      "fieldName": "productName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "productCode",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "productPrice",
+      "fieldType": "Long"
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": false,
+  "name": "Product",
+  "pagination": "pagination",
+  "readOnly": false,
+  "relationships": [
+    {
+      "otherEntityName": "productComment",
+      "otherEntityRelationshipName": "product",
+      "relationshipName": "productComment",
+      "relationshipType": "one-to-many"
+    },
+    {
+      "otherEntityName": "productCategory",
+      "otherEntityRelationshipName": "product",
+      "relationshipName": "productCategory",
+      "relationshipType": "many-to-one",
+      "relationshipValidateRules": "required"
+    }
+  ],
+  "service": "no"
+}

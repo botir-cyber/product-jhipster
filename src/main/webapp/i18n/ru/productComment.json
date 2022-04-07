@@ -1,0 +1,27 @@
+{
+  "productCrudApp": {
+    "productComment": {
+      "home": {
+        "title": "Product Comments",
+        "refreshListLabel": "Обновить список",
+        "createLabel": "Создать новый Product Comment",
+        "createOrEditLabel": "Создать или отредактировать Product Comment",
+        "notFound": "Product Comments не найдено"
+      },
+      "created": "Новый Product Comment создан с идентификатором {{ param }}",
+      "updated": "Product Comment обновлен с идентификатором {{ param }}",
+      "deleted": "Product Comment удален с идентификатором {{ param }}",
+      "delete": {
+        "question": "Вы уверены что хотите удалить Product Comment {{ id }}?"
+      },
+      "detail": {
+        "title": "Product Comment"
+      },
+      "id": "ID",
+      "productComment": "Product Comment",
+      "author": "Author",
+      "commentTitle": "Comment Title",
+      "product": "Product"
+    }
+  }
+}
