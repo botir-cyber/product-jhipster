@@ -1,9 +1,9 @@
 <template>
   <div>
-    <div>
-      <h2 id="page-heading" data-cy="ProductHeading">
-        <span v-text="$t('productCrudApp.product.home.title')" id="product-heading">Products</span>
-        <div class="d-flex justify-content-end">
+    <div class="m-5">
+      <h2 id="page-heading" class="d-flex justify-content-center" data-cy="ProductHeading">
+        <span v-text="$t('productCrudApp.product.home.title')" class="mx-5" id="product-heading">Products</span>
+        <div class="d-flex justify-content-center ">
           <button class="btn btn-info mr-2" v-on:click="handleSyncList" :disabled="isFetching">
             <font-awesome-icon icon="sync" :spin="isFetching"></font-awesome-icon>
             <span v-text="$t('productCrudApp.product.home.refreshListLabel')">Refresh List</span>
@@ -25,11 +25,11 @@
       <div class="alert alert-warning" v-if="!isFetching && products && products.length === 0">
         <span v-text="$t('productCrudApp.product.home.notFound')">No products found</span>
       </div>
-      <div class="table-responsive" v-if="products && products.length > 0">
-        <table class="table table-striped" aria-describedby="products">
+      <div class="table-responsive container text-center border border-danger"  v-if="products && products.length > 0">
+        <b-table class="table table-striped  p-2 " aria-describedby="products">
           <thead>
           <tr>
-            <th scope="row" v-on:click="changeOrder('id')">
+            <th scope="row"  v-on:click="changeOrder('id')">
               <span v-text="$t('global.field.id')">ID</span>
               <jhi-sort-indicator :current-order="propOrder" :reverse="reverse" :field-name="'id'"></jhi-sort-indicator>
             </th>
@@ -53,7 +53,7 @@
           </tr>
           </thead>
           <tbody>
-          <tr v-for="product in products" :key="product.id" data-cy="entityTable">
+          <tr  v-for="product in products" :key="product.id" data-cy="entityTable">
             <td>
               <router-link :to="{ name: 'ProductView', params: { productId: product.id } }">{{ product.id }}</router-link>
             </td>
@@ -86,7 +86,7 @@
                   variant="danger"
                   class="btn btn-sm"
                   data-cy="entityDeleteButton"
-                  v-b-modal.removeEntity
+                  v-b-modal.removeEntityProduct
                 >
                   <font-awesome-icon icon="times"></font-awesome-icon>
                   <span class="d-none d-md-inline" v-text="$t('entity.action.delete')">Delete</span>
@@ -95,21 +95,21 @@
             </td>
           </tr>
           </tbody>
-        </table>
+        </b-table>
       </div>
-      <b-modal ref="removeEntity" id="removeEntity">
+      <b-modal ref="removeEntityPro n   duct" id="removeEntityProduct">
       <span slot="modal-title"
       ><span id="productCrudApp.product.delete.question" data-cy="productDeleteDialogHeading" v-text="$t('entity.delete.title')"
       >Confirm delete operation</span
       ></span
       >
         <div class="modal-body">
-          <p id="jhi-delete-product-heading" v-text="$t('productCrudApp.product.delete.question', { id: removeId })">
+          <p id="jhi-delete-product-heading" v-text="$t('productCrudApp.product.delete.question', { id: removeIdProduct })">
             Are you sure you want to delete this Product?
           </p>
         </div>
         <div slot="modal-footer">
-          <button type="button" class="btn btn-secondary" v-text="$t('entity.action.cancel')" v-on:click="closeDialog()">Cancel</button>
+          <button type="button" class="btn btn-secondary" v-text="$t('entity.action.cancel')" v-on:click="closeDialogProduct()">Cancel</button>
           <button
             type="button"
             class="btn btn-primary"
@@ -131,10 +131,12 @@
         </div>
       </div>
     </div>
-    <div>
-      <h2 id="page-heading" data-cy="ProductCategoryHeading">
-        <span v-text="$t('productCrudApp.productCategory.home.title')" id="product-category-heading">Product Categories</span>
-        <div class="d-flex justify-content-end">
+
+<!--    2 page-->
+    <div class="m-5">
+      <h2 id="page-heading"  class="d-flex justify-content-center" data-cy="ProductCategoryHeading">
+        <span v-text="$t('productCrudApp.productCategory.home.title')" class="mx-5" id="product-category-heading">Product Categories</span>
+        <div class="d-flex justify-content-center">
           <button class="btn btn-info mr-2" v-on:click="handleSyncList" :disabled="isFetching">
             <font-awesome-icon icon="sync" :spin="isFetching"></font-awesome-icon>
             <span v-text="$t('productCrudApp.productCategory.home.refreshListLabel')">Refresh List</span>
@@ -156,8 +158,8 @@
       <div class="alert alert-warning" v-if="!isFetching && productCategories && productCategories.length === 0">
         <span v-text="$t('productCrudApp.productCategory.home.notFound')">No productCategories found</span>
       </div>
-      <div class="table-responsive" v-if="productCategories && productCategories.length > 0">
-        <table class="table table-striped" aria-describedby="productCategories">
+      <div class="table-responsive container text-center border border-danger" v-if="productCategories && productCategories.length > 0">
+        <table class="table table-striped p-2" aria-describedby="productCategories">
           <thead>
           <tr>
             <th scope="row" v-on:click="changeOrder('id')">
@@ -206,7 +208,7 @@
                   variant="danger"
                   class="btn btn-sm"
                   data-cy="entityDeleteButton"
-                  v-b-modal.removeEntity
+                  v-b-modal.removeEntityCategory
                 >
                   <font-awesome-icon icon="times"></font-awesome-icon>
                   <span class="d-none d-md-inline" v-text="$t('entity.action.delete')">Delete</span>
@@ -217,7 +219,7 @@
           </tbody>
         </table>
       </div>
-      <b-modal ref="removeEntity" id="removeEntity">
+      <b-modal ref="removeEntityCategory" id="removeEntityCategory">
       <span slot="modal-title"
       ><span
         id="productCrudApp.productCategory.delete.question"
@@ -232,7 +234,7 @@
           </p>
         </div>
         <div slot="modal-footer">
-          <button type="button" class="btn btn-secondary" v-text="$t('entity.action.cancel')" v-on:click="closeDialog()">Cancel</button>
+          <button type="button" class="btn btn-secondary" v-text="$t('entity.action.cancel')" v-on:click="closeDialogCategory()">Cancel</button>
           <button
             type="button"
             class="btn btn-primary"
@@ -257,10 +259,10 @@
 
 <!--    third one-->
 
-    <div>
-      <h2 id="page-heading" data-cy="ProductCommentHeading">
-        <span v-text="$t('productCrudApp.productComment.home.title')" id="product-comment-heading">Product Comments</span>
-        <div class="d-flex justify-content-end">
+    <div class="m-5">
+      <h2 id="page-heading" class="d-flex justify-content-center" data-cy="ProductCommentHeading">
+        <span v-text="$t('productCrudApp.productComment.home.title')" class="mx-5" id="product-comment-heading">Product Comments</span>
+        <div class="d-flex justify-content-center">
           <button class="btn btn-info mr-2" v-on:click="handleSyncList" :disabled="isFetching">
             <font-awesome-icon icon="sync" :spin="isFetching"></font-awesome-icon>
             <span v-text="$t('productCrudApp.productComment.home.refreshListLabel')">Refresh List</span>
@@ -282,8 +284,8 @@
       <div class="alert alert-warning" v-if="!isFetching && productComments && productComments.length === 0">
         <span v-text="$t('productCrudApp.productComment.home.notFound')">No productComments found</span>
       </div>
-      <div class="table-responsive" v-if="productComments && productComments.length > 0">
-        <table class="table table-striped" aria-describedby="productComments">
+      <div class="table-responsive container text-center border border-danger" v-if="productComments && productComments.length > 0">
+        <table class="table table-striped p-2" aria-describedby="productComments">
           <thead>
           <tr>
             <th scope="row" v-on:click="changeOrder('id')">
@@ -353,7 +355,7 @@
                   variant="danger"
                   class="btn btn-sm"
                   data-cy="entityDeleteButton"
-                  v-b-modal.removeEntity
+                  v-b-modal.removeEntityComment
                 >
                   <font-awesome-icon icon="times"></font-awesome-icon>
                   <span class="d-none d-md-inline" v-text="$t('entity.action.delete')">Delete</span>
@@ -364,7 +366,7 @@
           </tbody>
         </table>
       </div>
-      <b-modal ref="removeEntity" id="removeEntity">
+      <b-modal ref="removeEntityComment" id="removeEntityComment">
       <span slot="modal-title"
       ><span
         id="productCrudApp.productComment.delete.question"
@@ -379,7 +381,7 @@
           </p>
         </div>
         <div slot="modal-footer">
-          <button type="button" class="btn btn-secondary" v-text="$t('entity.action.cancel')" v-on:click="closeDialog()">Cancel</button>
+          <button type="button" class="btn btn-secondary" v-text="$t('entity.action.cancel')" v-on:click="closeDialogComment()">Cancel</button>
           <button
             type="button"
             class="btn btn-primary"

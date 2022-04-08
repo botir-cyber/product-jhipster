@@ -158,7 +158,7 @@ export default class AllProductComponent extends Vue{
         });
         this.removeId = null;
         this.retrieveAllProducts();
-        this.closeDialog();
+        this.closeDialogProduct();
       })
       .catch(error => {
         this.alertService().showHttpError(this, error.response);
@@ -179,7 +179,7 @@ export default class AllProductComponent extends Vue{
         });
         this.removeId = null;
         this.retrieveAllProductCategorys();
-        this.closeDialog();
+        this.closeDialogCategory();
       })
       .catch(error => {
         this.alertService().showHttpError(this, error.response);
@@ -200,7 +200,7 @@ export default class AllProductComponent extends Vue{
         });
         this.removeId = null;
         this.retrieveAllProductComments();
-        this.closeDialog();
+        this.closeDialogComment();
       })
       .catch(error => {
         this.alertService().showHttpError(this, error.response);
@@ -234,8 +234,14 @@ export default class AllProductComponent extends Vue{
     this.transition();
   }
 
-  public closeDialog(): void {
-    (<any>this.$refs.removeEntity).hide();
+  public closeDialogProduct(): void {
+    (<any>this.$refs.removeEntityProduct).hide();
+  }
+  public closeDialogCategory(): void {
+    (<any>this.$refs.removeEntityCategory).hide();
+  }
+  public closeDialogComment(): void {
+    (<any>this.$refs.removeEntityComment).hide();
   }
 
 
