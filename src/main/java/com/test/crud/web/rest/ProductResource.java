@@ -14,6 +14,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -46,7 +47,7 @@ public class ProductResource {
         this.productRepository = productRepository;
     }
 
-    /**
+  /**
      * {@code POST  /products} : Create a new product.
      *
      * @param product the product to create.
@@ -164,7 +165,6 @@ public class ProductResource {
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);
         return ResponseEntity.ok().headers(headers).body(page.getContent());
     }
-
     /**
      * {@code GET  /products/:id} : get the "id" product.
      *

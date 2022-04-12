@@ -6,7 +6,7 @@ import {IProduct, Product} from "@/shared/model/product.model";
 import AlertService from "@/shared/alert/alert.service";
 import ProductCategoryService from "@/entities/product-category/product-category.service";
 import ProductCommentService from "@/entities/product-comment/product-comment.service";
-import {IProductCategory} from "@/shared/model/product-category.model";
+import {IProductCategory, ProductCategory} from "@/shared/model/product-category.model";
 import {IProductComment} from "@/shared/model/product-comment.model";
 import { required } from 'vuelidate/lib/validators';
 
@@ -41,6 +41,7 @@ export default class AllProductComponent extends Vue{
 
   public product: IProduct = new Product();
 
+  public productCategory: IProductCategory = new ProductCategory();
 
 
 
@@ -73,12 +74,18 @@ export default class AllProductComponent extends Vue{
   public totalItemsCategory = 0;
 
   public products: IProduct[] = [];
+  public productsNew: IProduct[] = [];
   public productCategories: IProductCategory[] = [];
+  public productCategoriesAll: IProductCategory[] = [];
   public productComments: IProductComment[] = [];
 
   public isFetching = false;
 
   public isSaving = false;
+
+  public isCreate = false;
+
+  public lastProductId: number = null;
 
 
 
@@ -88,6 +95,8 @@ export default class AllProductComponent extends Vue{
       this.productService()
         .update(this.product)
         .then(param => {
+          this.isCreate=true;
+          this.retrieveAllProducts();
           this.isSaving = false;
           this.isProductShow = true;
           this.$router.go(-1);
@@ -108,9 +117,13 @@ export default class AllProductComponent extends Vue{
       this.productService()
         .create(this.product)
         .then(param => {
+          this.retrieveAllProducts();
+          this.lastProductId=param.id;
+          this.productService().find(this.lastProductId).then(res=>{this.product=res});
+          this.isCreate = true;
           this.isSaving = false;
           this.isProductShow = true;
-          const message = this.$t('productCrudApp.product.created', { param: param.id });
+          const message = this.$t('productCrudApp.product.created', {param: param.id});
           this.$root.$bvToast.toast(message.toString(), {
             toaster: 'b-toaster-top-center',
             title: 'Success',
@@ -125,27 +138,8 @@ export default class AllProductComponent extends Vue{
         });
     }
   }
-  public edit(): void {
-    this.isSaving = true;
-    this.productService()
-      .update(this.product)
-      .then(param => {
-        this.isSaving = false;
-        this.$router.go(-1);
-        const message = this.$t('productCrudApp.product.updated', { param: param.id });
-        return this.$root.$bvToast.toast(message.toString(), {
-          toaster: 'b-toaster-top-center',
-          title: 'Info',
-          variant: 'info',
-          solid: true,
-          autoHideDelay: 5000,
-        });
-      })
-      .catch(error => {
-        this.isSaving = false;
-        this.alertService().showHttpError(this, error.response);
-      });
-  }
+
+
 
   public mounted(): void {
     this.retrieveAllProducts();
@@ -173,8 +167,25 @@ export default class AllProductComponent extends Vue{
       .then(
         res => {
           this.products = res.data;
+          this.productsNew = res.data;
           this.totalItemsProduct = Number(res.headers['x-total-count']);
           this.queryCountProduct = this.totalItemsProduct;
+          this.  isFetching = false;
+        },
+        err => {
+          this.isFetching = false;
+          this.alertService().showHttpError(this, err.response);
+        }
+      );
+  }
+
+  public retrieveAllProductCategorysForSelectForm(): void {
+    this.isFetching = true;
+    this.productCategoryService()
+      .retrieveAll()
+      .then(
+        res => {
+          this.productCategoriesAll = res.data;
           this.isFetching = false;
         },
         err => {
@@ -235,15 +246,26 @@ export default class AllProductComponent extends Vue{
   }
 
 
-  public prepareEditProduct(instance: IProduct): void {
-    this.product = instance;
+  public prepareCreateProduct(): void {
+    this.product = new Product();
     if (<any>this.$refs.removeEntity) {
       (<any>this.$refs.removeEntity).show();
     }
   }
 
-  public prepareViewProduct(instance: IProduct): void {
-    this.product = instance;
+  public prepareCreateCategory(): void {
+    this.productCategory = new ProductCategory();
+    if (<any>this.$refs.removeEntity) {
+      (<any>this.$refs.removeEntity).show();
+    }
+  }
+
+  public prepareEditOrCreateProduct(instance: IProduct): void {
+    this.productService().
+    find(instance.id).
+    then(res=>
+    {this.product=res});
+
     if (<any>this.$refs.removeEntity) {
       (<any>this.$refs.removeEntity).show();
     }
@@ -412,7 +434,11 @@ export default class AllProductComponent extends Vue{
   }
 
   public closeDialogProductCreate(): void {
-    (<any>this.$refs.createEntityProduct).hide();
+    (<any>this.$refs.createOrEditEntityProduct).hide();
+  }
+
+  public closeDialogProductView(): void {
+    (<any>this.$refs.viewEntityProduct).hide();
   }
   public closeDialogProductUpdate(): void {
     (<any>this.$refs.editEntityProduct).hide();

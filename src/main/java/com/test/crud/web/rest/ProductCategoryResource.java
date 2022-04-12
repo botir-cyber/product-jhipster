@@ -1,5 +1,6 @@
 package com.test.crud.web.rest;
 
+import com.test.crud.domain.Product;
 import com.test.crud.domain.ProductCategory;
 import com.test.crud.repository.ProductCategoryRepository;
 import com.test.crud.web.rest.errors.BadRequestAlertException;
@@ -12,6 +13,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -34,6 +36,8 @@ public class ProductCategoryResource {
     private final Logger log = LoggerFactory.getLogger(ProductCategoryResource.class);
 
     private static final String ENTITY_NAME = "productCategory";
+
+
 
     @Value("${jhipster.clientApp.name}")
     private String applicationName;
@@ -155,6 +159,14 @@ public class ProductCategoryResource {
         Page<ProductCategory> page = productCategoryRepository.findAll(pageable);
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);
         return ResponseEntity.ok().headers(headers).body(page.getContent());
+    }
+
+
+    @GetMapping("/product-categories/all")
+    public ResponseEntity<List<ProductCategory>> getAllProducts() {
+        log.debug("REST request to get a page of Products");
+        List<ProductCategory> list = productCategoryRepository.findAll();
+        return ResponseEntity.ok().body(list);
     }
 
     /**
