@@ -5,6 +5,7 @@ import buildPaginationQueryOpts from '@/shared/sort/sorts';
 import { IProduct } from '@/shared/model/product.model';
 
 const baseApiUrl = 'api/products';
+const baseApiUrl2 = 'api/products/all';
 
 export default class ProductService {
   public find(id: number): Promise<IProduct> {
@@ -24,6 +25,19 @@ export default class ProductService {
     return new Promise<any>((resolve, reject) => {
       axios
         .get(baseApiUrl + `?${buildPaginationQueryOpts(paginationQuery)}`)
+        .then(res => {
+          resolve(res);
+        })
+        .catch(err => {
+          reject(err);
+        });
+    });
+  }
+
+  public retrieveAll(): Promise<any> {
+    return new Promise<any>((resolve, reject) => {
+      axios
+        .get(baseApiUrl2)
         .then(res => {
           resolve(res);
         })

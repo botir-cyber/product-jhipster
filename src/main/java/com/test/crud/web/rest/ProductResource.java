@@ -1,6 +1,7 @@
 package com.test.crud.web.rest;
 
 import com.test.crud.domain.Product;
+import com.test.crud.domain.ProductCategory;
 import com.test.crud.repository.ProductRepository;
 import com.test.crud.web.rest.errors.BadRequestAlertException;
 import java.net.URI;
@@ -16,6 +17,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -161,10 +163,18 @@ public class ProductResource {
     @GetMapping("/products")
     public ResponseEntity<List<Product>> getAllProducts(@org.springdoc.api.annotations.ParameterObject Pageable pageable) {
         log.debug("REST request to get a page of Products");
-        Page<Product> page = productRepository.findAll(pageable);
+        Page<Product> page = productRepository.findAllByOrderByIdDesc(pageable);
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);
         return ResponseEntity.ok().headers(headers).body(page.getContent());
     }
+
+    @GetMapping("/products/all")
+    public ResponseEntity<List<Product>> getAllProducts() {
+        log.debug("REST request to get a page of Products");
+        List<Product> list = productRepository.findAll();
+        return ResponseEntity.ok().body(list);
+    }
+
     /**
      * {@code GET  /products/:id} : get the "id" product.
      *

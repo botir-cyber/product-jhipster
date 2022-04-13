@@ -7,7 +7,7 @@ import AlertService from "@/shared/alert/alert.service";
 import ProductCategoryService from "@/entities/product-category/product-category.service";
 import ProductCommentService from "@/entities/product-comment/product-comment.service";
 import {IProductCategory, ProductCategory} from "@/shared/model/product-category.model";
-import {IProductComment} from "@/shared/model/product-comment.model";
+import {IProductComment, ProductComment} from "@/shared/model/product-comment.model";
 import { required } from 'vuelidate/lib/validators';
 
 
@@ -43,6 +43,8 @@ export default class AllProductComponent extends Vue{
 
   public productCategory: IProductCategory = new ProductCategory();
 
+  public productComment: IProductComment = new ProductComment();
+
 
 
   private removeId: number = null;
@@ -60,6 +62,8 @@ export default class AllProductComponent extends Vue{
   public previousPage = 1;
 
   public isProductShow = false;
+  public isCategoryShow = false;
+  public isCommentShow = false;
 
 
   public propOrder = 'id';
@@ -74,32 +78,39 @@ export default class AllProductComponent extends Vue{
   public totalItemsCategory = 0;
 
   public products: IProduct[] = [];
-  public productsNew: IProduct[] = [];
   public productCategories: IProductCategory[] = [];
   public productCategoriesAll: IProductCategory[] = [];
   public productComments: IProductComment[] = [];
+  public productCommentsAll: IProductComment[] = [];
+  public productsAll: IProduct[] = [];
 
   public isFetching = false;
+  public isFetchingCategory = false;
 
   public isSaving = false;
 
-  public isCreate = false;
+  public isSavingCategory = false;
+
+  public isSavingComment = false;
+
 
   public lastProductId: number = null;
 
+  public lastCategoryId: number = null;
+
+  public lastCommentId: number = null;
 
 
-  public save(): void {
+
+  public saveProduct(): void {
     this.isSaving = true;
     if (this.product.id) {
       this.productService()
         .update(this.product)
         .then(param => {
-          this.isCreate=true;
           this.retrieveAllProducts();
           this.isSaving = false;
           this.isProductShow = true;
-          this.$router.go(-1);
           const message = this.$t('productCrudApp.product.updated', { param: param.id });
           return this.$root.$bvToast.toast(message.toString(), {
             toaster: 'b-toaster-top-center',
@@ -118,9 +129,9 @@ export default class AllProductComponent extends Vue{
         .create(this.product)
         .then(param => {
           this.retrieveAllProducts();
+          this.retrieveAllProductsForSelectForm();
           this.lastProductId=param.id;
           this.productService().find(this.lastProductId).then(res=>{this.product=res});
-          this.isCreate = true;
           this.isSaving = false;
           this.isProductShow = true;
           const message = this.$t('productCrudApp.product.created', {param: param.id});
@@ -139,6 +150,101 @@ export default class AllProductComponent extends Vue{
     }
   }
 
+  public saveComment(): void {
+    this.isSavingComment = true;
+    if (this.productComment.id) {
+      this.productCommentService()
+        .update(this.productComment)
+        .then(param => {
+          this.retrieveAllProductComments();
+          this.isSavingComment = false;
+          this.isCommentShow = true;
+          const message = this.$t('productCrudApp.product.updated', { param: param.id });
+          return this.$root.$bvToast.toast(message.toString(), {
+            toaster: 'b-toaster-top-center',
+            title: 'Info',
+            variant: 'info',
+            solid: true,
+            autoHideDelay: 5000,
+          });
+        })
+        .catch(error => {
+          this.isSavingComment = false;
+          this.alertService().showHttpError(this, error.response);
+        });
+    } else {
+      this.productCommentService()
+        .create(this.productComment)
+        .then(param => {
+          this.retrieveAllProductComments();
+          this.lastCommentId=param.id;
+          this.productCommentService().find(this.lastCommentId).then(res=>{this.productComment=res});
+          this.isSavingComment = false;
+          this.isCommentShow = true;
+          const message = this.$t('productCrudApp.product.created', {param: param.id});
+          this.$root.$bvToast.toast(message.toString(), {
+            toaster: 'b-toaster-top-center',
+            title: 'Success',
+            variant: 'success',
+            solid: true,
+            autoHideDelay: 5000,
+          });
+        })
+        .catch(error => {
+          this.isSavingComment = false;
+          this.alertService().showHttpError(this, error.response);
+        });
+    }
+  }
+
+
+  public saveProductCategory(): void {
+    this.isSavingCategory = true;
+    if (this.productCategory.id) {
+      this.productCategoryService()
+        .update(this.productCategory)
+        .then(param => {
+          this.retrieveAllProductCategorys();
+          this.isSavingCategory = false;
+          this.isCategoryShow = true;
+          const message = this.$t('productCrudApp.productCategory.updated', { param: param.id });
+          return this.$root.$bvToast.toast(message.toString(), {
+            toaster: 'b-toaster-top-center',
+            title: 'Info',
+            variant: 'info',
+            solid: true,
+            autoHideDelay: 5000,
+          });
+        })
+        .catch(error => {
+          this.isSavingCategory = false;
+          this.alertService().showHttpError(this, error.response);
+        });
+    } else {
+      this.productCategoryService()
+        .create(this.productCategory)
+        .then(param => {
+          this.retrieveAllProductCategorys();
+          this.lastCategoryId=param.id;
+          this.productCategoryService().find(this.lastCategoryId).then(res=>{this.productCategory=res});
+          this.isSavingCategory = false;
+          this.isCategoryShow = true;
+          const message = this.$t('productCrudApp.productCategory.created', {param: param.id});
+          this.$root.$bvToast.toast(message.toString(), {
+            toaster: 'b-toaster-top-center',
+            title: 'Success',
+            variant: 'success',
+            solid: true,
+            autoHideDelay: 5000,
+          });
+        })
+        .catch(error => {
+          this.isSavingCategory = false;
+          this.alertService().showHttpError(this, error.response);
+        });
+    }
+  }
+
 
 
   public mounted(): void {
@@ -149,6 +255,8 @@ export default class AllProductComponent extends Vue{
 
   public clear(): void {
     this.pageProduct = 1;
+    this.pageCategory = 1;
+    this.page = 1;
     this.retrieveAllProducts();
     this.retrieveAllProductCategorys();
     this.retrieveAllProductComments();
@@ -161,13 +269,11 @@ export default class AllProductComponent extends Vue{
       size: this.itemsPerPageProduct,
       sort: this.sortProduct(),
     };
-
     this.productService()
       .retrieve(paginationQuery)
       .then(
         res => {
           this.products = res.data;
-          this.productsNew = res.data;
           this.totalItemsProduct = Number(res.headers['x-total-count']);
           this.queryCountProduct = this.totalItemsProduct;
           this.  isFetching = false;
@@ -186,6 +292,22 @@ export default class AllProductComponent extends Vue{
       .then(
         res => {
           this.productCategoriesAll = res.data;
+          this.isFetching = false;
+        },
+        err => {
+          this.isFetching = false;
+          this.alertService().showHttpError(this, err.response);
+        }
+      );
+  }
+
+  public retrieveAllProductsForSelectForm(): void {
+    this.isFetching = true;
+    this.productService()
+      .retrieveAll()
+      .then(
+        res => {
+          this.productsAll = res.data;
           this.isFetching = false;
         },
         err => {
@@ -260,11 +382,40 @@ export default class AllProductComponent extends Vue{
     }
   }
 
+  public prepareCreateComment(): void {
+    this.productComment = new ProductComment();
+    if (<any>this.$refs.removeEntity) {
+      (<any>this.$refs.removeEntity).show();
+    }
+  }
+
   public prepareEditOrCreateProduct(instance: IProduct): void {
     this.productService().
     find(instance.id).
     then(res=>
     {this.product=res});
+
+    if (<any>this.$refs.removeEntity) {
+      (<any>this.$refs.removeEntity).show();
+    }
+  }
+
+  public prepareEditOrCreateProductCategory(instance: IProductCategory): void {
+    this.productCategoryService().
+    find(instance.id).
+    then(res=>
+    {this.productCategory=res});
+
+    if (<any>this.$refs.removeEntity) {
+      (<any>this.$refs.removeEntity).show();
+    }
+  }
+
+  public prepareEditOrCreateProductComment(instance: IProductComment): void {
+    this.productCommentService().
+    find(instance.id).
+    then(res=>
+    {this.productComment=res});
 
     if (<any>this.$refs.removeEntity) {
       (<any>this.$refs.removeEntity).show();
@@ -300,7 +451,7 @@ export default class AllProductComponent extends Vue{
         this.$bvToast.toast(message.toString(), {
           toaster: 'b-toaster-top-center',
           title: 'Info',
-          variant: 'danger',
+          variant: 'success',
           solid: true,
           autoHideDelay: 5000,
         });
@@ -321,7 +472,7 @@ export default class AllProductComponent extends Vue{
         this.$bvToast.toast(message.toString(), {
           toaster: 'b-toaster-top-center',
           title: 'Info',
-          variant: 'danger',
+          variant: 'success',
           solid: true,
           autoHideDelay: 5000,
         });
@@ -342,7 +493,7 @@ export default class AllProductComponent extends Vue{
         this.$bvToast.toast(message.toString(), {
           toaster: 'b-toaster-top-center',
           title: 'Info',
-          variant: 'danger',
+          variant: 'success',
           solid: true,
           autoHideDelay: 5000,
         });
@@ -356,7 +507,7 @@ export default class AllProductComponent extends Vue{
   }
 
   public sortProduct(): Array<any> {
-    const result = [this.propOrderProduct + ',' + (this.reverseProduct ? 'desc' : 'asc')];
+    const result = [this.propOrderProduct + ',' + (this.reverseProduct ? 'asc' : 'desc')];
     if (this.propOrderProduct !== 'id') {
       result.push('id');
     }
@@ -364,7 +515,7 @@ export default class AllProductComponent extends Vue{
   }
 
   public sortCategory(): Array<any> {
-    const result = [this.propOrderCategory + ',' + (this.reverseCategory ? 'desc' : 'asc')];
+    const result = [this.propOrderCategory + ',' + (this.reverseCategory ? 'asc' : 'desc')];
     if (this.propOrderCategory !== 'id') {
       result.push('id');
     }
@@ -372,7 +523,7 @@ export default class AllProductComponent extends Vue{
   }
 
   public sort(): Array<any> {
-    const result = [this.propOrder + ',' + (this.reverse ? 'desc' : 'asc')];
+    const result = [this.propOrder + ',' + (this.reverse ? 'asc' : 'desc')];
     if (this.propOrder !== 'id') {
       result.push('id');
     }
@@ -437,9 +588,34 @@ export default class AllProductComponent extends Vue{
     (<any>this.$refs.createOrEditEntityProduct).hide();
   }
 
+  public closeDialogProductCategoryCreate(): void {
+    (<any>this.$refs.createOrEditEntityProductCategory).hide();
+  }
+
+
+  public closeDialogProductCommentCreate(): void {
+    (<any>this.$refs.createOrEditEntityProductComment).hide();
+  }
+
+
   public closeDialogProductView(): void {
     (<any>this.$refs.viewEntityProduct).hide();
   }
+  public closeDialogProductCategoryView(): void {
+    (<any>this.$refs.viewEntityProductCategory).hide();
+  }
+  public closeDialogProductCommentView(): void {
+    (<any>this.$refs.viewEntityProductComment).hide();
+  }
+
+  public closeDialogProductCategory(): void {
+    (<any>this.$refs.removeEntityCategory).hide();
+  }
+
+  public closeDialogProductComment(): void {
+    (<any>this.$refs.removeEntityComment).hide();
+  }
+
   public closeDialogProductUpdate(): void {
     (<any>this.$refs.editEntityProduct).hide();
   }
