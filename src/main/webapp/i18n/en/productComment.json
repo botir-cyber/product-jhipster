@@ -1,5 +1,5 @@
 {
-  "productCrudApp": {
+  "crudApp": {
     "productComment": {
       "home": {
         "title": "Product Comments",

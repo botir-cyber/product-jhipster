@@ -1,11 +1,11 @@
 <template>
   <div>
     <h2 id="page-heading" data-cy="ProductCategoryHeading">
-      <span v-text="$t('productCrudApp.productCategory.home.title')" id="product-category-heading">Product Categories</span>
+      <span v-text="$t('crudApp.productCategory.home.title')" id="product-category-heading">Product Categories</span>
       <div class="d-flex justify-content-end">
         <button class="btn btn-info mr-2" v-on:click="handleSyncList" :disabled="isFetching">
           <font-awesome-icon icon="sync" :spin="isFetching"></font-awesome-icon>
-          <span v-text="$t('productCrudApp.productCategory.home.refreshListLabel')">Refresh List</span>
+          <span v-text="$t('crudApp.productCategory.home.refreshListLabel')">Refresh List</span>
         </button>
         <router-link :to="{ name: 'ProductCategoryCreate' }" custom v-slot="{ navigate }">
           <button
@@ -15,14 +15,14 @@
             class="btn btn-primary jh-create-entity create-product-category"
           >
             <font-awesome-icon icon="plus"></font-awesome-icon>
-            <span v-text="$t('productCrudApp.productCategory.home.createLabel')"> Create a new Product Category </span>
+            <span v-text="$t('crudApp.productCategory.home.createLabel')"> Create a new Product Category </span>
           </button>
         </router-link>
       </div>
     </h2>
     <br />
     <div class="alert alert-warning" v-if="!isFetching && productCategories && productCategories.length === 0">
-      <span v-text="$t('productCrudApp.productCategory.home.notFound')">No productCategories found</span>
+      <span v-text="$t('crudApp.productCategory.home.notFound')">No productCategories found</span>
     </div>
     <div class="table-responsive" v-if="productCategories && productCategories.length > 0">
       <table class="table table-striped" aria-describedby="productCategories">
@@ -33,7 +33,7 @@
               <jhi-sort-indicator :current-order="propOrder" :reverse="reverse" :field-name="'id'"></jhi-sort-indicator>
             </th>
             <th scope="row" v-on:click="changeOrder('productCategoryName')">
-              <span v-text="$t('productCrudApp.productCategory.productCategoryName')">Product Category Name</span>
+              <span v-text="$t('crudApp.productCategory.productCategoryName')">Product Category Name</span>
               <jhi-sort-indicator :current-order="propOrder" :reverse="reverse" :field-name="'productCategoryName'"></jhi-sort-indicator>
             </th>
             <th scope="row"></th>
@@ -87,15 +87,12 @@
     </div>
     <b-modal ref="removeEntity" id="removeEntity">
       <span slot="modal-title"
-        ><span
-          id="productCrudApp.productCategory.delete.question"
-          data-cy="productCategoryDeleteDialogHeading"
-          v-text="$t('entity.delete.title')"
+        ><span id="crudApp.productCategory.delete.question" data-cy="productCategoryDeleteDialogHeading" v-text="$t('entity.delete.title')"
           >Confirm delete operation</span
         ></span
       >
       <div class="modal-body">
-        <p id="jhi-delete-productCategory-heading" v-text="$t('productCrudApp.productCategory.delete.question', { id: removeId })">
+        <p id="jhi-delete-productCategory-heading" v-text="$t('crudApp.productCategory.delete.question', { id: removeId })">
           Are you sure you want to delete this Product Category?
         </p>
       </div>

@@ -70,7 +70,7 @@ export default class ProductUpdate extends Vue {
         .then(param => {
           this.isSaving = false;
           this.$router.go(-1);
-          const message = this.$t('productCrudApp.product.updated', { param: param.id });
+          const message = this.$t('crudApp.product.updated', { param: param.id });
           return this.$root.$bvToast.toast(message.toString(), {
             toaster: 'b-toaster-top-center',
             title: 'Info',
@@ -89,7 +89,7 @@ export default class ProductUpdate extends Vue {
         .then(param => {
           this.isSaving = false;
           this.$router.go(-1);
-          const message = this.$t('productCrudApp.product.created', { param: param.id });
+          const message = this.$t('crudApp.product.created', { param: param.id });
           this.$root.$bvToast.toast(message.toString(), {
             toaster: 'b-toaster-top-center',
             title: 'Success',

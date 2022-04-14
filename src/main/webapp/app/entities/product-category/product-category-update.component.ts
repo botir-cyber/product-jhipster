@@ -56,7 +56,7 @@ export default class ProductCategoryUpdate extends Vue {
         .then(param => {
           this.isSaving = false;
           this.$router.go(-1);
-          const message = this.$t('productCrudApp.productCategory.updated', { param: param.id });
+          const message = this.$t('crudApp.productCategory.updated', { param: param.id });
           return this.$root.$bvToast.toast(message.toString(), {
             toaster: 'b-toaster-top-center',
             title: 'Info',
@@ -75,7 +75,7 @@ export default class ProductCategoryUpdate extends Vue {
         .then(param => {
           this.isSaving = false;
           this.$router.go(-1);
-          const message = this.$t('productCrudApp.productCategory.created', { param: param.id });
+          const message = this.$t('crudApp.productCategory.created', { param: param.id });
           this.$root.$bvToast.toast(message.toString(), {
             toaster: 'b-toaster-top-center',
             title: 'Success',

@@ -163,7 +163,7 @@ public class ProductResource {
     @GetMapping("/products")
     public ResponseEntity<List<Product>> getAllProducts(@org.springdoc.api.annotations.ParameterObject Pageable pageable) {
         log.debug("REST request to get a page of Products");
-        Page<Product> page = productRepository.findAllByOrderByIdDesc(pageable);
+        Page<Product> page = productRepository.findAll(pageable);
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);
         return ResponseEntity.ok().headers(headers).body(page.getContent());
     }
@@ -171,7 +171,7 @@ public class ProductResource {
     @GetMapping("/products/all")
     public ResponseEntity<List<Product>> getAllProducts() {
         log.debug("REST request to get a page of Products");
-        List<Product> list = productRepository.findAll();
+        List<Product> list = productRepository.findAll(Sort.by(Sort.Direction.DESC, "id"));
         return ResponseEntity.ok().body(list);
     }
 

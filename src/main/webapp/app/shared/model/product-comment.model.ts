@@ -5,7 +5,11 @@ export interface IProductComment {
   productComment?: string | null;
   author?: string | null;
   commentTitle?: string | null;
-  product?: IProduct;
+  productId?: number;
+  productName?: string | null;
+  productCategoryId?: number;
+  productCategoryName?: number;
+
 }
 
 export class ProductComment implements IProductComment {
@@ -14,6 +18,10 @@ export class ProductComment implements IProductComment {
     public productComment?: string | null,
     public author?: string | null,
     public commentTitle?: string | null,
-    public product?: IProduct
+    public productId?: number,
+    public productName?: string | null,
+    public productCategoryId?: number,
+    public productCategoryName?: number,
+
   ) {}
 }

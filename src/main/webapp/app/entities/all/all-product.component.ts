@@ -19,7 +19,7 @@ const validations: any = {
     productName: {},
     productCode: {},
     productPrice: {},
-    productCategory: {
+    productCategoryId: {
       required,
     },
   },
@@ -108,7 +108,7 @@ export default class AllProductComponent extends Vue{
       this.productService()
         .update(this.product)
         .then(param => {
-          this.retrieveAllProducts();
+          this.retrieveAllProducts()
           this.isSaving = false;
           this.isProductShow = true;
           const message = this.$t('productCrudApp.product.updated', { param: param.id });
@@ -129,7 +129,6 @@ export default class AllProductComponent extends Vue{
         .create(this.product)
         .then(param => {
           this.retrieveAllProducts();
-          this.retrieveAllProductsForSelectForm();
           this.lastProductId=param.id;
           this.productService().find(this.lastProductId).then(res=>{this.product=res});
           this.isSaving = false;
@@ -157,6 +156,7 @@ export default class AllProductComponent extends Vue{
         .update(this.productComment)
         .then(param => {
           this.retrieveAllProductComments();
+          this.retrieveAllProductsForSelectForm();
           this.isSavingComment = false;
           this.isCommentShow = true;
           const message = this.$t('productCrudApp.product.updated', { param: param.id });
@@ -177,6 +177,7 @@ export default class AllProductComponent extends Vue{
         .create(this.productComment)
         .then(param => {
           this.retrieveAllProductComments();
+          this.retrieveAllProductsForSelectForm();
           this.lastCommentId=param.id;
           this.productCommentService().find(this.lastCommentId).then(res=>{this.productComment=res});
           this.isSavingComment = false;
@@ -285,7 +286,7 @@ export default class AllProductComponent extends Vue{
       );
   }
 
-  public retrieveAllProductCategorysForSelectForm(): void {
+  public retrieveAllProductCategoriesForSelectForm(): void {
     this.isFetching = true;
     this.productCategoryService()
       .retrieveAll()
@@ -351,9 +352,11 @@ export default class AllProductComponent extends Vue{
       .then(
         res => {
           this.productComments = res.data;
+          console.log("productCommentService")
           this.totalItems = Number(res.headers['x-total-count']);
           this.queryCount = this.totalItems;
           this.isFetching = false;
+          console.log(this.productComment)
         },
         err => {
           this.isFetching = false;

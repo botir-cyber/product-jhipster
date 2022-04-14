@@ -3,9 +3,9 @@
     <div class="col-8">
       <form name="editForm" role="form" novalidate v-on:submit.prevent="save()">
         <h2
-          id="productCrudApp.productCategory.home.createOrEditLabel"
+          id="crudApp.productCategory.home.createOrEditLabel"
           data-cy="ProductCategoryCreateUpdateHeading"
-          v-text="$t('productCrudApp.productCategory.home.createOrEditLabel')"
+          v-text="$t('crudApp.productCategory.home.createOrEditLabel')"
         >
           Create or edit a ProductCategory
         </h2>
@@ -17,7 +17,7 @@
           <div class="form-group">
             <label
               class="form-control-label"
-              v-text="$t('productCrudApp.productCategory.productCategoryName')"
+              v-text="$t('crudApp.productCategory.productCategoryName')"
               for="product-category-productCategoryName"
               >Product Category Name</label
             >

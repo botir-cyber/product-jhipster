@@ -72,7 +72,7 @@ export default class ProductComment extends Vue {
     this.productCommentService()
       .delete(this.removeId)
       .then(() => {
-        const message = this.$t('productCrudApp.productComment.deleted', { param: this.removeId });
+        const message = this.$t('crudApp.productComment.deleted', { param: this.removeId });
         this.$bvToast.toast(message.toString(), {
           toaster: 'b-toaster-top-center',
           title: 'Info',

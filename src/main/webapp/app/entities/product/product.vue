@@ -1,11 +1,11 @@
 <template>
   <div>
     <h2 id="page-heading" data-cy="ProductHeading">
-      <span v-text="$t('productCrudApp.product.home.title')" id="product-heading">Products</span>
+      <span v-text="$t('crudApp.product.home.title')" id="product-heading">Products</span>
       <div class="d-flex justify-content-end">
         <button class="btn btn-info mr-2" v-on:click="handleSyncList" :disabled="isFetching">
           <font-awesome-icon icon="sync" :spin="isFetching"></font-awesome-icon>
-          <span v-text="$t('productCrudApp.product.home.refreshListLabel')">Refresh List</span>
+          <span v-text="$t('crudApp.product.home.refreshListLabel')">Refresh List</span>
         </button>
         <router-link :to="{ name: 'ProductCreate' }" custom v-slot="{ navigate }">
           <button
@@ -15,14 +15,14 @@
             class="btn btn-primary jh-create-entity create-product"
           >
             <font-awesome-icon icon="plus"></font-awesome-icon>
-            <span v-text="$t('productCrudApp.product.home.createLabel')"> Create a new Product </span>
+            <span v-text="$t('crudApp.product.home.createLabel')"> Create a new Product </span>
           </button>
         </router-link>
       </div>
     </h2>
     <br />
     <div class="alert alert-warning" v-if="!isFetching && products && products.length === 0">
-      <span v-text="$t('productCrudApp.product.home.notFound')">No products found</span>
+      <span v-text="$t('crudApp.product.home.notFound')">No products found</span>
     </div>
     <div class="table-responsive" v-if="products && products.length > 0">
       <table class="table table-striped" aria-describedby="products">
@@ -33,19 +33,19 @@
               <jhi-sort-indicator :current-order="propOrder" :reverse="reverse" :field-name="'id'"></jhi-sort-indicator>
             </th>
             <th scope="row" v-on:click="changeOrder('productName')">
-              <span v-text="$t('productCrudApp.product.productName')">Product Name</span>
+              <span v-text="$t('crudApp.product.productName')">Product Name</span>
               <jhi-sort-indicator :current-order="propOrder" :reverse="reverse" :field-name="'productName'"></jhi-sort-indicator>
             </th>
             <th scope="row" v-on:click="changeOrder('productCode')">
-              <span v-text="$t('productCrudApp.product.productCode')">Product Code</span>
+              <span v-text="$t('crudApp.product.productCode')">Product Code</span>
               <jhi-sort-indicator :current-order="propOrder" :reverse="reverse" :field-name="'productCode'"></jhi-sort-indicator>
             </th>
             <th scope="row" v-on:click="changeOrder('productPrice')">
-              <span v-text="$t('productCrudApp.product.productPrice')">Product Price</span>
+              <span v-text="$t('crudApp.product.productPrice')">Product Price</span>
               <jhi-sort-indicator :current-order="propOrder" :reverse="reverse" :field-name="'productPrice'"></jhi-sort-indicator>
             </th>
             <th scope="row" v-on:click="changeOrder('productCategory.id')">
-              <span v-text="$t('productCrudApp.product.productCategory')">Product Category</span>
+              <span v-text="$t('crudApp.product.productCategory')">Product Category</span>
               <jhi-sort-indicator :current-order="propOrder" :reverse="reverse" :field-name="'productCategory.id'"></jhi-sort-indicator>
             </th>
             <th scope="row"></th>
@@ -98,12 +98,12 @@
     </div>
     <b-modal ref="removeEntity" id="removeEntity">
       <span slot="modal-title"
-        ><span id="productCrudApp.product.delete.question" data-cy="productDeleteDialogHeading" v-text="$t('entity.delete.title')"
+        ><span id="crudApp.product.delete.question" data-cy="productDeleteDialogHeading" v-text="$t('entity.delete.title')"
           >Confirm delete operation</span
         ></span
       >
       <div class="modal-body">
-        <p id="jhi-delete-product-heading" v-text="$t('productCrudApp.product.delete.question', { id: removeId })">
+        <p id="jhi-delete-product-heading" v-text="$t('crudApp.product.delete.question', { id: removeId })">
           Are you sure you want to delete this Product?
         </p>
       </div>

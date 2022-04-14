@@ -6,11 +6,12 @@
 
     <div class="m-5">
       <h2 id="page-heading" class="d-flex justify-content-center" data-cy="ProductCategoryHeading">
-        <span v-text="$t('productCrudApp.productCategory.home.title')" class="mx-5" id="product-category-heading">Products</span>
+        <span v-text="$t('crudApp.productCategory.home.title')" class="mx-5" id="product-category-heading">Products</span>
         <div class="d-flex justify-content-center ">
           <button class="btn btn-info mr-2" v-on:click="handleSyncList" :disabled="isFetching">
             <font-awesome-icon icon="sync" :spin="isFetching"></font-awesome-icon>
-            <span v-text="$t('productCrudApp.productCategory.home.refreshListLabel')">Refresh List</span>
+            <span v-text="$t('' +
+             'crudApp.productCategory.home.refreshListLabel')">Refresh List</span>
           </button>
 
           <!--BUTTON for creating CATEGORY-->
@@ -27,7 +28,7 @@
       </h2>
       <br/>
       <div class="alert alert-warning" v-if="!isFetchingCategory && productCategories && productCategories.length === 0">
-        <span v-text="$t('productCrudApp.productCategory.home.notFound')">No productCategories found</span>
+        <span v-text="$t('crudApp.productCategory.home.notFound')">No productCategories found</span>
       </div>
       <div class="table-responsive container text-center border border-danger" v-if="productCategories && productCategories.length > 0">
         <table class="table table-striped p-2" aria-describedby="productCategories">
@@ -35,11 +36,11 @@
           <tr>
             <th scope="row" v-on:click="changeOrderCategory('id')">
               <span v-text="$t('global.field.id')">ID</span>
-              <jhi-sort-indicator :current-order="propOrder" :reverse="reverse" :field-name="'id'"></jhi-sort-indicator>
+              <jhi-sort-indicator :current-order="propOrder" :reverse="reverseCategory" :field-name="'id'"></jhi-sort-indicator>
             </th>
             <th scope="row" v-on:click="changeOrderCategory('productCategoryName')">
-              <span v-text="$t('productCrudApp.productCategory.productCategoryName')">Product Category Name</span>
-              <jhi-sort-indicator :current-order="propOrder" :reverse="reverse"
+              <span v-text="$t('crudApp.productCategory.productCategoryName')">Product Category Name</span>
+              <jhi-sort-indicator :current-order="propOrder" :reverse="reverseCategory"
                                   :field-name="'productCategoryName'"></jhi-sort-indicator>
             </th>
             <th scope="row"></th>
@@ -110,16 +111,16 @@
 
     <div class="m-5">
       <h2 id="page-heading" class="d-flex justify-content-center" data-cy="ProductHeading">
-        <span v-text="$t('productCrudApp.product.home.title')" class="mx-5" id="product-heading">Products</span>
+        <span v-text="$t('crudApp.product.home.title')" class="mx-5" id="product-heading">Products</span>
         <div class="d-flex justify-content-center ">
           <button class="btn btn-info mr-2" v-on:click="handleSyncList" :disabled="isFetching">
             <font-awesome-icon icon="sync" :spin="isFetching"></font-awesome-icon>
-            <span v-text="$t('productCrudApp.product.home.refreshListLabel')">Refresh List</span>
+            <span v-text="$t('crudApp.product.home.refreshListLabel')">Refresh List</span>
           </button>
 
           <!--BUTTON for creating-->
           <b-button
-            v-on:click="prepareCreateProduct(),retrieveAllProductCategorysForSelectForm()"
+            v-on:click="prepareCreateProduct(),retrieveAllProductCategoriesForSelectForm()"
             variant="danger"
             class="btn btn-danger mr-2"
             data-cy="entityCreateButton"
@@ -131,7 +132,7 @@
       </h2>
       <br/>
       <div class="alert alert-warning" v-if="!isFetching && products && products.length === 0">
-        <span v-text="$t('productCrudApp.product.home.notFound')">No products found</span>
+        <span v-text="$t('crudApp.product.home.notFound')">No products found</span>
       </div>
       <div class="table-responsive container text-center border border-danger" v-if="products && products.length > 0">
         <table class="table table-striped  p-2 " aria-describedby="products">
@@ -142,25 +143,25 @@
               <jhi-sort-indicator :current-order="propOrderProduct" :reverse="reverseProduct"
                                   :field-name="'id'"></jhi-sort-indicator>
             </th>
+            <th scope="row" v-on:click="changeOrderProduct('productCategory.productCategoryName')">
+              <span v-text="$t('crudApp.product.productCategory')">Product Category</span>
+              <jhi-sort-indicator :current-order="propOrderProduct" :reverse="reverseProduct"
+                                  :field-name="'productCategory.productCategoryName'"></jhi-sort-indicator>
+            </th>
             <th scope="row" v-on:click="changeOrderProduct('productName')">
-              <span v-text="$t('productCrudApp.product.productName')">Product Name</span>
+              <span v-text="$t('crudApp.product.productName')">Product Name</span>
               <jhi-sort-indicator :current-order="propOrderProduct" :reverse="reverseProduct"
                                   :field-name="'productName'"></jhi-sort-indicator>
             </th>
             <th scope="row" v-on:click="changeOrderProduct('productCode')">
-              <span v-text="$t('productCrudApp.product.productCode')">Product Code</span>
+              <span v-text="$t('crudApp.product.productCode')">Product Code</span>
               <jhi-sort-indicator :current-order="propOrderProduct" :reverse="reverseProduct"
                                   :field-name="'productCode'"></jhi-sort-indicator>
             </th>
             <th scope="row" v-on:click="changeOrderProduct('productPrice')">
-              <span v-text="$t('productCrudApp.product.productPrice')">Product Price</span>
+              <span v-text="$t('crudApp.product.productPrice')">Product Price</span>
               <jhi-sort-indicator :current-order="propOrderProduct" :reverse="reverseProduct"
                                   :field-name="'productPrice'"></jhi-sort-indicator>
-            </th>
-            <th scope="row" v-on:click="changeOrderProduct('productCategory.productCategoryName')">
-              <span v-text="$t('productCrudApp.product.productCategory')">Product Category</span>
-              <jhi-sort-indicator :current-order="propOrderProduct" :reverse="reverseProduct"
-                                  :field-name="'productCategory.productCategoryName'"></jhi-sort-indicator>
             </th>
             <th scope="row"></th>
           </tr>
@@ -174,11 +175,11 @@
               </router-link>
             </td>
             <td>
-              <div v-if="product.productCategory">
+              <div v-if="product.productCategoryId">
                 <p
-                  :to="{ name: 'ProductCategoryView', params: { productCategoryId: product.productCategory.productCategoryName } }">
+                  :to="{ name: 'ProductCategoryView', params: { productCategoryId: product.productCategoryName } }">
                   {{
-                    product.productCategory.productCategoryName
+                    product.productCategoryName
                   }}
                 </p>
               </div>
@@ -199,7 +200,7 @@
                 </button>
 
                 <button
-                  v-on:click="prepareEditOrCreateProduct(product),retrieveAllProductCategorysForSelectForm()"
+                  v-on:click="prepareEditOrCreateProduct(product),retrieveAllProductCategoriesForSelectForm()"
                   class="btn btn-primary btn-sm edit"
                   data-cy="createOrEditEntityProduct"
                   v-b-modal.createOrEditEntityProduct>
@@ -242,11 +243,11 @@
 
     <div class="m-5">
       <h2 id="page-heading" class="d-flex justify-content-center" data-cy="ProductCommentHeading">
-        <span v-text="$t('productCrudApp.productComment.home.title')" class="mx-5" id="product-comment-heading">Product Comments</span>
+        <span v-text="$t('crudApp.productComment.home.title')" class="mx-5" id="product-comment-heading">Product Comments</span>
         <div class="d-flex justify-content-center ">
           <button class="btn btn-info mr-2" v-on:click="handleSyncList" :disabled="isFetching">
             <font-awesome-icon icon="sync" :spin="isFetching"></font-awesome-icon>
-            <span v-text="$t('productCrudApp.productComment.home.refreshListLabel')">Refresh List</span>
+            <span v-text="$t('crudApp.productComment.home.refreshListLabel')">Refresh List</span>
           </button>
           <!--BUTTON for creating CATEGORY-->
           <b-button
@@ -261,7 +262,7 @@
       </h2>
       <br />
       <div class="alert alert-warning" v-if="!isFetching && productComments && productComments.length === 0">
-        <span v-text="$t('productCrudApp.productComment.home.notFound')">No productComments found</span>
+        <span v-text="$t('crudApp.productComment.home.notFound')">No productComments found</span>
       </div>
       <div class="table-responsive container text-center border border-danger" v-if="productComments && productComments.length > 0">
         <table class="table table-striped p-2" aria-describedby="productComments">
@@ -271,21 +272,21 @@
               <span v-text="$t('global.field.id')">ID</span>
               <jhi-sort-indicator :current-order="propOrder" :reverse="reverse" :field-name="'id'"></jhi-sort-indicator>
             </th>
+            <th scope="row" v-on:click="changeOrder('productId')">
+              <span v-text="$t('crudApp.productComment.product')">Product</span>
+              <jhi-sort-indicator :current-order="propOrder" :reverse="reverse" :field-name="'productId'"></jhi-sort-indicator>
+            </th>
             <th scope="row" v-on:click="changeOrder('productComment')">
-              <span v-text="$t('productCrudApp.productComment.productComment')">Product Comment</span>
+              <span v-text="$t('crudApp.productComment.productComment')">Product Comment</span>
               <jhi-sort-indicator :current-order="propOrder" :reverse="reverse" :field-name="'productComment'"></jhi-sort-indicator>
             </th>
             <th scope="row" v-on:click="changeOrder('author')">
-              <span v-text="$t('productCrudApp.productComment.author')">Author</span>
+              <span v-text="$t('crudApp.productComment.author')">Author</span>
               <jhi-sort-indicator :current-order="propOrder" :reverse="reverse" :field-name="'author'"></jhi-sort-indicator>
             </th>
             <th scope="row" v-on:click="changeOrder('commentTitle')">
-              <span v-text="$t('productCrudApp.productComment.commentTitle')">Comment Title</span>
+              <span v-text="$t('crudApp.productComment.commentTitle')">Comment Title</span>
               <jhi-sort-indicator :current-order="propOrder" :reverse="reverse" :field-name="'commentTitle'"></jhi-sort-indicator>
-            </th>
-            <th scope="row" v-on:click="changeOrder('product.id')">
-              <span v-text="$t('productCrudApp.productComment.product')">Product</span>
-              <jhi-sort-indicator :current-order="propOrder" :reverse="reverse" :field-name="'product.id'"></jhi-sort-indicator>
             </th>
             <th scope="row"></th>
           </tr>
@@ -298,9 +299,9 @@
                 }}</router-link>
             </td>
             <td>
-              <div v-if="productComment.product">
-                <p :to="{ name: 'ProductView', params: { productId: productComment.product.id } }">{{
-                    productComment.product.productName
+              <div v-if="productComment.productId">
+                <p :to="{ name: 'ProductView', params: { productId: productComment.productName } }">{{
+                    productComment.productName
                   }}</p>
               </div>
             </td>
@@ -319,7 +320,6 @@
                   <font-awesome-icon icon="eye"></font-awesome-icon>
                   <span class="d-none d-md-inline" v-text="$t('entity.action.view')">View</span>
                 </button>
-
 
                 <button
                   v-on:click="prepareEditOrCreateProductComment(productComment),retrieveAllProductsForSelectForm()"
@@ -364,13 +364,13 @@
     <!--      Modal For Removing Product-->
     <b-modal ref="removeEntityProduct" id="removeEntityProduct">
       <span slot="modal-title"
-      ><span id="productCrudApp.product.delete.question" data-cy="productDeleteDialogHeading"
+      ><span id="crudApp.product.delete.question" data-cy="productDeleteDialogHeading"
              v-text="$t('entity.delete.title')"
       >Confirm delete operation</span
       ></span
       >
       <div class="modal-body">
-        <p id="jhi-delete-product-heading" v-text="$t('productCrudApp.product.delete.question', { id: removeId })">
+        <p id="jhi-delete-product-heading" v-text="$t('crudApp.product.delete.question', { id: removeId })">
           Are you sure you want to delete this Product?
         </p>
       </div>
@@ -394,7 +394,7 @@
     <b-modal ref="removeEntityCategory" id="removeEntityCategory">
       <span slot="modal-title"
       ><span
-        id="productCrudApp.productCategory.delete.question"
+        id="crudApp.productCategory.delete.question"
         data-cy="productCategoryDeleteDialogHeading"
         v-text="$t('entity.delete.title')"
       >Confirm delete operation</span
@@ -402,7 +402,7 @@
       >
       <div class="modal-body">
         <p id="jhi-delete-productCategory-heading"
-           v-text="$t('productCrudApp.productCategory.delete.question', { id: removeId })">
+           v-text="$t('crudApp.productCategory.delete.question', { id: removeId })">
           Are you sure you want to delete this Product Category?
         </p>
       </div>
@@ -426,14 +426,14 @@
     <b-modal ref="removeEntityComment" id="removeEntityComment">
       <span slot="modal-title"
       ><span
-        id="productCrudApp.productComment.delete.question"
+        id="crudApp.productComment.delete.question"
         data-cy="productCommentDeleteDialogHeading"
         v-text="$t('entity.delete.title')"
       >Confirm delete operation</span
       ></span
       >
       <div class="modal-body">
-        <p id="jhi-delete-productComment-heading" v-text="$t('productCrudApp.productComment.delete.question', { id: removeId })">
+        <p id="jhi-delete-productComment-heading" v-text="$t('crudApp.productComment.delete.question', { id: removeId })">
           Are you sure you want to delete this Product Comment?
         </p>
       </div>
@@ -478,7 +478,7 @@
           </div>
 
           <div class="form-group">
-            <label class="form-control-label" v-text="$t('productCrudApp.product.productCode')"
+            <label class="form-control-label" v-text="$t('crudApp.product.productCode')"
                    for="product-productCode"
             >Product Code</label
             >
@@ -494,7 +494,7 @@
           </div>
 
           <div class="form-group">
-            <label class="form-control-label" v-text="$t('productCrudApp.product.productPrice')"
+            <label class="form-control-label" v-text="$t('crudApp.product.productPrice')"
                    for="product-productPrice"
             >Product Price</label
             >
@@ -509,7 +509,7 @@
           </div>
 
           <div class="form-group">
-            <label class="form-control-label" v-text="$t('productCrudApp.product.productCategory')"
+            <label class="form-control-label" v-text="$t('crudApp.product.productCategory')"
                    for="product-productCategory"
             >Product Category</label
             >
@@ -518,20 +518,20 @@
               id="product-productCategory"
               data-cy="productCategory"
               name="productCategory"
-              v-model="product.productCategory"
+              v-model="product.productCategoryName"
               required
             >
-              <option v-if="!product.productCategory" v-bind:value="null" selected></option>
+              <option v-if="!product.productCategoryId" v-bind:value="null" selected></option>
               <option
                 v-bind:value="
-                  product.productCategory && productCategoryOption.id === product.productCategory.id
-                    ? product.productCategory
+                  product.productCategoryId && productCategoryOption.id === product.productCategoryId
+                    ? product.productCategoryId
                     : productCategoryOption
                 "
                 v-for="productCategoryOption in productCategoriesAll"
-                :key="productCategoryOption.id"
+                :key="productCategoryOption.productCategoryName"
               >
-                {{ productCategoryOption.productCategoryName }}
+                {{ productCategoryOption.id }}
               </option>
             </select>
           </div>
@@ -622,7 +622,7 @@
           </div>
 
           <div class="form-group">
-            <label class="form-control-label" v-text="$t('productCrudApp.productComment.author')"
+            <label class="form-control-label" v-text="$t('crudApp.productComment.author')"
                    for="author"
             >Author</label
             >
@@ -637,7 +637,7 @@
           </div>
 
           <div class="form-group">
-            <label class="form-control-label" v-text="$t('productCrudApp.productComment.commentTitle')"
+            <label class="form-control-label" v-text="$t('crudApp.productComment.commentTitle')"
                    for="product-comment-title"
             >Product Price</label
             >
@@ -651,10 +651,12 @@
             />
           </div>
 
+
+
           <div class="form-group">
-            <label class="form-control-label" v-text="$t('productCrudApp.productComment.product')"
+            <label class="form-control-label" v-text="$t('crudApp.productComment.product')"
                    for="products-select"
-            >Product Category</label
+            >Product </label
             >
             <select
               class="form-control"
@@ -721,31 +723,31 @@
           </dd>
 
           <dt>
-            <span v-text="$t('productCrudApp.product.productName')">Product Name</span>
+            <span v-text="$t('crudApp.product.productName')">Product Name</span>
           </dt>
           <dd>
             <span>{{ product.productName }}</span>
           </dd>
           <dt>
-            <span v-text="$t('productCrudApp.product.productCode')">Product Code</span>
+            <span v-text="$t('crudApp.product.productCode')">Product Code</span>
           </dt>
           <dd>
             <span>{{ product.productCode }}</span>
           </dd>
           <dt>
-            <span v-text="$t('productCrudApp.product.productPrice')">Product Price</span>
+            <span v-text="$t('crudApp.product.productPrice')">Product Price</span>
           </dt>
           <dd>
             <span>{{ product.productPrice }}</span>
           </dd>
           <dt>
-            <span v-text="$t('productCrudApp.product.productCategory')">Product Category</span>
+            <span v-text="$t('crudApp.product.productCategory')">Product Category</span>
           </dt>
           <dd>
-            <div v-if="product.productCategory">
+            <div v-if="product.productCategoryId">
               <router-link
-                :to="{ name: 'ProductCategoryView', params: { productCategoryId: product.productCategory.id } }">{{
-                  product.productCategory.productCategoryName
+                :to="{ name: 'ProductCategoryView', params: { productCategoryId: product.productCategoryId } }">{{
+                  product.productCategoryName
                 }}
               </router-link>
             </div>
@@ -834,9 +836,9 @@
             <span>Product </span>
           </dt>
           <dd>
-            <div v-if="productComment.product">
+            <div v-if="productComment.productId">
               <span>
-                  {{productComment.product.productName}}
+                  {{productComment.productName}}
               </span>
             </div>
           </dd>

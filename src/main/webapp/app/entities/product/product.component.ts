@@ -72,7 +72,7 @@ export default class Product extends Vue {
     this.productService()
       .delete(this.removeId)
       .then(() => {
-        const message = this.$t('productCrudApp.product.deleted', { param: this.removeId });
+        const message = this.$t('crudApp.product.deleted', { param: this.removeId });
         this.$bvToast.toast(message.toString(), {
           toaster: 'b-toaster-top-center',
           title: 'Info',

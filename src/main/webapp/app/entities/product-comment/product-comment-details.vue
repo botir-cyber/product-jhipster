@@ -3,29 +3,29 @@
     <div class="col-8">
       <div v-if="productComment">
         <h2 class="jh-entity-heading" data-cy="productCommentDetailsHeading">
-          <span v-text="$t('productCrudApp.productComment.detail.title')">ProductComment</span> {{ productComment.id }}
+          <span v-text="$t('crudApp.productComment.detail.title')">ProductComment</span> {{ productComment.id }}
         </h2>
         <dl class="row jh-entity-details">
           <dt>
-            <span v-text="$t('productCrudApp.productComment.productComment')">Product Comment</span>
+            <span v-text="$t('crudApp.productComment.productComment')">Product Comment</span>
           </dt>
           <dd>
             <span>{{ productComment.productComment }}</span>
           </dd>
           <dt>
-            <span v-text="$t('productCrudApp.productComment.author')">Author</span>
+            <span v-text="$t('crudApp.productComment.author')">Author</span>
           </dt>
           <dd>
             <span>{{ productComment.author }}</span>
           </dd>
           <dt>
-            <span v-text="$t('productCrudApp.productComment.commentTitle')">Comment Title</span>
+            <span v-text="$t('crudApp.productComment.commentTitle')">Comment Title</span>
           </dt>
           <dd>
             <span>{{ productComment.commentTitle }}</span>
           </dd>
           <dt>
-            <span v-text="$t('productCrudApp.productComment.product')">Product</span>
+            <span v-text="$t('crudApp.productComment.product')">Product</span>
           </dt>
           <dd>
             <div v-if="productComment.product">

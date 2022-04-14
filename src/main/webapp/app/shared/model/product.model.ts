@@ -1,4 +1,4 @@
-import { IProductComment } from '@/shared/model/product-comment.model';
+
 import { IProductCategory } from '@/shared/model/product-category.model';
 
 export interface IProduct {
@@ -6,8 +6,8 @@ export interface IProduct {
   productName?: string | null;
   productCode?: string | null;
   productPrice?: number | null;
-  productComments?: IProductComment[] | null;
-  productCategory?: IProductCategory;
+  productCategoryId?: number;
+  productCategoryName?: string | null;
 }
 
 export class Product implements IProduct {
@@ -16,7 +16,7 @@ export class Product implements IProduct {
     public productName?: string | null,
     public productCode?: string | null,
     public productPrice?: number | null,
-    public productComments?: IProductComment[] | null,
-    public productCategory?: IProductCategory
+    public productCategoryId?: number,
+    public productCategoryName?: string | null
   ) {}
 }

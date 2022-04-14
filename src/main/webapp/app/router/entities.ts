@@ -24,7 +24,6 @@ const ProductCommentDetails = () => import('@/entities/product-comment/product-c
 // jhipster-needle-add-entity-to-router-import - JHipster will import entities to the router here
 
 const AllProduct = () => import('@/entities/all/all-product.vue');
-// jhipster-needle-add-entity-to-router-import - JHipster will import entities to the router here
 
 export default {
   path: '/',

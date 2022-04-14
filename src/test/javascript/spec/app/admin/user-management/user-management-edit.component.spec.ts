@@ -78,8 +78,8 @@ describe('UserManagementEdit Component', () => {
       // GIVEN
       axiosStub.put.resolves({
         headers: {
-          'x-productcrudapp-alert': '',
-          'x-productcrudapp-params': '',
+          'x-crudapp-alert': '',
+          'x-crudapp-params': '',
         },
       });
       userManagementEdit.userAccount = { id: 123, authorities: [] };
@@ -97,8 +97,8 @@ describe('UserManagementEdit Component', () => {
       // GIVEN
       axiosStub.post.resolves({
         headers: {
-          'x-productcrudapp-alert': '',
-          'x-productcrudapp-params': '',
+          'x-crudapp-alert': '',
+          'x-crudapp-params': '',
         },
       });
       userManagementEdit.userAccount = { authorities: [] };

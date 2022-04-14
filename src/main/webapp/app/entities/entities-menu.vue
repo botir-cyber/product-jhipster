@@ -14,7 +14,7 @@
     </b-dropdown-item>
     <b-dropdown-item to="/all-product">
       <font-awesome-icon icon="asterisk" />
-     <span > AllProduct</span>
+      <span > AllProduct</span>
     </b-dropdown-item>
     <!-- jhipster-needle-add-entity-to-menu - JHipster will add entities to the menu here -->
   </div>

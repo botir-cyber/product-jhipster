@@ -3,11 +3,11 @@
     <div class="col-8">
       <div v-if="productCategory">
         <h2 class="jh-entity-heading" data-cy="productCategoryDetailsHeading">
-          <span v-text="$t('productCrudApp.productCategory.detail.title')">ProductCategory</span> {{ productCategory.id }}
+          <span v-text="$t('crudApp.productCategory.detail.title')">ProductCategory</span> {{ productCategory.id }}
         </h2>
         <dl class="row jh-entity-details">
           <dt>
-            <span v-text="$t('productCrudApp.productCategory.productCategoryName')">Product Category Name</span>
+            <span v-text="$t('crudApp.productCategory.productCategoryName')">Product Category Name</span>
           </dt>
           <dd>
             <span>{{ productCategory.productCategoryName }}</span>

@@ -125,8 +125,6 @@ export default class JhiUserManagementEdit extends Vue {
   }
 
   private getMessageFromHeader(res: any): any {
-    return this.$t(res.headers['x-productcrudapp-alert'], {
-      param: decodeURIComponent(res.headers['x-productcrudapp-params'].replace(/\+/g, ' ')),
-    });
+    return this.$t(res.headers['x-crudapp-alert'], { param: decodeURIComponent(res.headers['x-crudapp-params'].replace(/\+/g, ' ')) });
   }
 }

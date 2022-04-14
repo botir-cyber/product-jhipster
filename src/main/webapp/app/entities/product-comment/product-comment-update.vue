@@ -3,9 +3,9 @@
     <div class="col-8">
       <form name="editForm" role="form" novalidate v-on:submit.prevent="save()">
         <h2
-          id="productCrudApp.productComment.home.createOrEditLabel"
+          id="crudApp.productComment.home.createOrEditLabel"
           data-cy="ProductCommentCreateUpdateHeading"
-          v-text="$t('productCrudApp.productComment.home.createOrEditLabel')"
+          v-text="$t('crudApp.productComment.home.createOrEditLabel')"
         >
           Create or edit a ProductComment
         </h2>
@@ -15,10 +15,7 @@
             <input type="text" class="form-control" id="id" name="id" v-model="productComment.id" readonly />
           </div>
           <div class="form-group">
-            <label
-              class="form-control-label"
-              v-text="$t('productCrudApp.productComment.productComment')"
-              for="product-comment-productComment"
+            <label class="form-control-label" v-text="$t('crudApp.productComment.productComment')" for="product-comment-productComment"
               >Product Comment</label
             >
             <input
@@ -32,9 +29,7 @@
             />
           </div>
           <div class="form-group">
-            <label class="form-control-label" v-text="$t('productCrudApp.productComment.author')" for="product-comment-author"
-              >Author</label
-            >
+            <label class="form-control-label" v-text="$t('crudApp.productComment.author')" for="product-comment-author">Author</label>
             <input
               type="text"
               class="form-control"
@@ -46,7 +41,7 @@
             />
           </div>
           <div class="form-group">
-            <label class="form-control-label" v-text="$t('productCrudApp.productComment.commentTitle')" for="product-comment-commentTitle"
+            <label class="form-control-label" v-text="$t('crudApp.productComment.commentTitle')" for="product-comment-commentTitle"
               >Comment Title</label
             >
             <input
@@ -60,9 +55,7 @@
             />
           </div>
           <div class="form-group">
-            <label class="form-control-label" v-text="$t('productCrudApp.productComment.product')" for="product-comment-product"
-              >Product</label
-            >
+            <label class="form-control-label" v-text="$t('crudApp.productComment.product')" for="product-comment-product">Product</label>
             <select
               class="form-control"
               id="product-comment-product"

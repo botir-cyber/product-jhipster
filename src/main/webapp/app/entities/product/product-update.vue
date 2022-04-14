@@ -3,9 +3,9 @@
     <div class="col-8">
       <form name="editForm" role="form" novalidate v-on:submit.prevent="save()">
         <h2
-          id="productCrudApp.product.home.createOrEditLabel"
+          id="crudApp.product.home.createOrEditLabel"
           data-cy="ProductCreateUpdateHeading"
-          v-text="$t('productCrudApp.product.home.createOrEditLabel')"
+          v-text="$t('crudApp.product.home.createOrEditLabel')"
         >
           Create or edit a Product
         </h2>
@@ -15,9 +15,7 @@
             <input type="text" class="form-control" id="id" name="id" v-model="product.id" readonly />
           </div>
           <div class="form-group">
-            <label class="form-control-label" v-text="$t('productCrudApp.product.productName')" for="product-productName"
-              >Product Name</label
-            >
+            <label class="form-control-label" v-text="$t('crudApp.product.productName')" for="product-productName">Product Name</label>
             <input
               type="text"
               class="form-control"
@@ -29,9 +27,7 @@
             />
           </div>
           <div class="form-group">
-            <label class="form-control-label" v-text="$t('productCrudApp.product.productCode')" for="product-productCode"
-              >Product Code</label
-            >
+            <label class="form-control-label" v-text="$t('crudApp.product.productCode')" for="product-productCode">Product Code</label>
             <input
               type="text"
               class="form-control"
@@ -43,9 +39,7 @@
             />
           </div>
           <div class="form-group">
-            <label class="form-control-label" v-text="$t('productCrudApp.product.productPrice')" for="product-productPrice"
-              >Product Price</label
-            >
+            <label class="form-control-label" v-text="$t('crudApp.product.productPrice')" for="product-productPrice">Product Price</label>
             <input
               type="number"
               class="form-control"
@@ -57,7 +51,7 @@
             />
           </div>
           <div class="form-group">
-            <label class="form-control-label" v-text="$t('productCrudApp.product.productCategory')" for="product-productCategory"
+            <label class="form-control-label" v-text="$t('crudApp.product.productCategory')" for="product-productCategory"
               >Product Category</label
             >
             <select

@@ -1,11 +1,11 @@
 <template>
   <div>
     <h2 id="page-heading" data-cy="ProductCommentHeading">
-      <span v-text="$t('productCrudApp.productComment.home.title')" id="product-comment-heading">Product Comments</span>
+      <span v-text="$t('crudApp.productComment.home.title')" id="product-comment-heading">Product Comments</span>
       <div class="d-flex justify-content-end">
         <button class="btn btn-info mr-2" v-on:click="handleSyncList" :disabled="isFetching">
           <font-awesome-icon icon="sync" :spin="isFetching"></font-awesome-icon>
-          <span v-text="$t('productCrudApp.productComment.home.refreshListLabel')">Refresh List</span>
+          <span v-text="$t('crudApp.productComment.home.refreshListLabel')">Refresh List</span>
         </button>
         <router-link :to="{ name: 'ProductCommentCreate' }" custom v-slot="{ navigate }">
           <button
@@ -15,14 +15,14 @@
             class="btn btn-primary jh-create-entity create-product-comment"
           >
             <font-awesome-icon icon="plus"></font-awesome-icon>
-            <span v-text="$t('productCrudApp.productComment.home.createLabel')"> Create a new Product Comment </span>
+            <span v-text="$t('crudApp.productComment.home.createLabel')"> Create a new Product Comment </span>
           </button>
         </router-link>
       </div>
     </h2>
     <br />
     <div class="alert alert-warning" v-if="!isFetching && productComments && productComments.length === 0">
-      <span v-text="$t('productCrudApp.productComment.home.notFound')">No productComments found</span>
+      <span v-text="$t('crudApp.productComment.home.notFound')">No productComments found</span>
     </div>
     <div class="table-responsive" v-if="productComments && productComments.length > 0">
       <table class="table table-striped" aria-describedby="productComments">
@@ -33,19 +33,19 @@
               <jhi-sort-indicator :current-order="propOrder" :reverse="reverse" :field-name="'id'"></jhi-sort-indicator>
             </th>
             <th scope="row" v-on:click="changeOrder('productComment')">
-              <span v-text="$t('productCrudApp.productComment.productComment')">Product Comment</span>
+              <span v-text="$t('crudApp.productComment.productComment')">Product Comment</span>
               <jhi-sort-indicator :current-order="propOrder" :reverse="reverse" :field-name="'productComment'"></jhi-sort-indicator>
             </th>
             <th scope="row" v-on:click="changeOrder('author')">
-              <span v-text="$t('productCrudApp.productComment.author')">Author</span>
+              <span v-text="$t('crudApp.productComment.author')">Author</span>
               <jhi-sort-indicator :current-order="propOrder" :reverse="reverse" :field-name="'author'"></jhi-sort-indicator>
             </th>
             <th scope="row" v-on:click="changeOrder('commentTitle')">
-              <span v-text="$t('productCrudApp.productComment.commentTitle')">Comment Title</span>
+              <span v-text="$t('crudApp.productComment.commentTitle')">Comment Title</span>
               <jhi-sort-indicator :current-order="propOrder" :reverse="reverse" :field-name="'commentTitle'"></jhi-sort-indicator>
             </th>
             <th scope="row" v-on:click="changeOrder('product.id')">
-              <span v-text="$t('productCrudApp.productComment.product')">Product</span>
+              <span v-text="$t('crudApp.productComment.product')">Product</span>
               <jhi-sort-indicator :current-order="propOrder" :reverse="reverse" :field-name="'product.id'"></jhi-sort-indicator>
             </th>
             <th scope="row"></th>
@@ -108,15 +108,12 @@
     </div>
     <b-modal ref="removeEntity" id="removeEntity">
       <span slot="modal-title"
-        ><span
-          id="productCrudApp.productComment.delete.question"
-          data-cy="productCommentDeleteDialogHeading"
-          v-text="$t('entity.delete.title')"
+        ><span id="crudApp.productComment.delete.question" data-cy="productCommentDeleteDialogHeading" v-text="$t('entity.delete.title')"
           >Confirm delete operation</span
         ></span
       >
       <div class="modal-body">
-        <p id="jhi-delete-productComment-heading" v-text="$t('productCrudApp.productComment.delete.question', { id: removeId })">
+        <p id="jhi-delete-productComment-heading" v-text="$t('crudApp.productComment.delete.question', { id: removeId })">
           Are you sure you want to delete this Product Comment?
         </p>
       </div>

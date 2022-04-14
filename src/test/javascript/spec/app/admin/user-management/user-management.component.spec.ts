@@ -91,8 +91,8 @@ describe('UserManagement Component', () => {
       // GIVEN
       axiosStub.delete.resolves({
         headers: {
-          'x-productcrudapp-alert': '',
-          'x-productcrudapp-params': '',
+          'x-crudapp-alert': '',
+          'x-crudapp-params': '',
         },
       });
 
